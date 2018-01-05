@@ -1,0 +1,64 @@
+{
+  "name": "pfmunderwear",
+  "version": "1.0.0",
+  "description": "PFM Underwear",
+  "main": "gulpfile.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/rb-media/pfmunderwear.git"
+  },
+  "author": "RB-Media",
+  "license": "ISC",
+  "paths": {
+    "css": "./public_html/css/",
+    "fonts": "./public_html/fonts/",
+    "js": "./public_html/js/",
+    "jsminified": "./public_html/js/min/",
+    "img": "./public_html/img/",
+    "scss": "./application/sass/",
+	"tpl": "./Smarty/templates/"
+  },
+  "host": "pfmunderwear.acc.rb-media.nl",
+  "port": "3001",
+  "babel": {
+     "babelrc": false,
+     "presets": [
+       "env"
+     ],
+     "sourceMaps": true,
+     "minified": true,
+     "comments": false
+   },
+   "devDependencies": {
+     "autoprefixer": "^7.1.4",
+     "babel-core": "^6.26.0",
+     "babel-preset-env": "^1.6.0",
+     "browser-sync": "^2.18.13",
+     "cssnano": "^3.10.0",
+     "event-stream": "^3.3.4",
+     "gulp": "^3.9.1",
+     "gulp-babel": "^7.0.0",
+     "gulp-load-plugins": "^1.5.0",
+     "gulp-postcss": "^7.0.0",
+     "gulp-sass": "^3.1.0",
+	 "gulp-sass-vars": "^1.3.0",
+     "gulp-sourcemaps": "^2.6.1",
+     "pixrem": "^3.0.2",
+     "pump": "^1.0.2"
+   },
+	"breakpoints": {
+		"cScreenFHD"		: "1920px",
+		"cScreenWSXGAplus"	: "1680px",
+		"cScreenWSXGAother"	: "1536px",
+		"cScreenWXGAplus"	: "1440px",
+		"cXLargeDesktop"	: "1392px",
+		"cScreenWXGA"		: "1280px",
+		"cLargeDesktop"		: "1176px",
+		"cTabletHorizontal"	: "1024px",
+		"cTabletVertical"	: "899px",
+		"cMobileLarge"		: "767px",
+		"cMobileMedium"		: "599px",
+		"cMobileSmall"		: "479px"
+
+	}
+}
