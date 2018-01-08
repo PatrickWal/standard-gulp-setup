@@ -55,7 +55,8 @@ gulp.task('sass-watch', ['sass'], function(done) {
 //Compile sass task - Compile sass into CSS into the public css folder, and writing out a sourcemap
 gulp.task('sass', function() {
   gulp.src( pkg.paths.scss +'style.scss')
-  	.pipe($.sourcemaps.init())
+  	.pipe($.plumber({errorHandler: onError}))
+	.pipe($.sourcemaps.init())
 	.pipe($.sassVars(pkg.breakpoints, { verbose: true }))
     .pipe($.sass().on('error', $.sass.logError))
 	.pipe($.sourcemaps.write('../'))
@@ -71,6 +72,7 @@ gulp.task('postCSS', function() {
     ];
 
     return gulp.src( pkg.paths.css + '*.css')
+		.pipe($.plumber({errorHandler: onError}))
 		.pipe($.sourcemaps.init())
         .pipe($.postcss(plugins))
 		.pipe($.sourcemaps.write('../'))
@@ -81,9 +83,50 @@ gulp.task('postCSS', function() {
 // Compile js task - transpile our Javascript into the build directory
 gulp.task('Compile', () =>
     gulp.src(pkg.paths.js + '*.js')
-        .pipe($.babel())
+        .pipe($.plumber({errorHandler: onError}))
+		.pipe($.babel())
         .pipe(gulp.dest(pkg.paths.jsminified))
 );
 
+//compress all images -  optimize filesize all images
+gulp.task('imagemin', function() {
+    return gulp.src([ pkg.paths.img +'*.{png,jpg,jpeg,gif,svg}'])
+        .pipe($.imagemin([
+            //png
+            $.imageminPngquant({
+                speed: 1,
+                quality: 98 //lossy settings
+            }),
+            $.imageminZopfli({
+                more: true
+            }),
+
+            //gif very light lossy, use only one of gifsicle or Giflossy
+            $.imageminGiflossy({
+                optimizationLevel: 3,
+                optimize: 3, //keep-empty: Preserve empty transparent frames
+                lossy: 2
+            }),
+            //svg
+            $.imagemin.svgo({
+                plugins: [{
+                    removeViewBox: false
+                }]
+            }),
+            //jpg lossless
+            $.imagemin.jpegtran({
+                progressive: true
+            }),
+            //jpg very light lossy, use vs jpegtran
+            $.imageminMozjpeg({
+                quality: 90
+            })
+        ]
+		,{
+			verbose: true
+		}))
+        .pipe(gulp.dest(pkg.paths.img));
+});
+
 // Production build
-gulp.task('PrepareForLive',['sass', 'postCSS', 'Compile'] );
+gulp.task('PrepareForLive',['sass', 'postCSS', 'Compile', 'imagemin'] );
