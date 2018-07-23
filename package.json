@@ -15,8 +15,8 @@
     "js": "./public_html/js/",
     "jsminified": "./public_html/js/min/",
     "img": "./public_html/img/",
-    "scss": "./application/sass/",
-	"tpl": "./Smarty/templates/"
+    "scss": "./dio.framework/sass/",
+    "tpl": "./dio.templates/tpl/"
   },
   "host": "{PROJECTNAME}.acc.rb-media.nl",
   "port": "3001",
